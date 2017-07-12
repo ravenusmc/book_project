@@ -1,0 +1,23 @@
+{
+  "name": "book_project",
+  "version": "1.0.0",
+  "description": "This is a project where users enter in books into a database. Built with the MEN stack.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravenusmc/book_project.git"
+  },
+  "author": "Mike Cuddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ravenusmc/book_project/issues"
+  },
+  "homepage": "https://github.com/ravenusmc/book_project#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.3"
+  }
+}
