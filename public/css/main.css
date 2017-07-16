@@ -15,6 +15,12 @@ footer {
   font-size: 25px;
 }
 
+button {
+  background-color: orange;
+  border: 8px solid orange;
+  padding: 10px;
+}
+
 /* Code for index page */
 
 /*This code will apply to all of the images to ceate a parallax effect */
