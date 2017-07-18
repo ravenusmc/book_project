@@ -22,12 +22,21 @@
 </nav>
 
 <!-- Main Elements -->
-<main>
-  <% for(var i = 0; i < books.length; i++) { %>
-    <h2>Book Name: <%= books[i].title %> </h2>
-    <h2>Book Author: <%= books[i].author %> </h2>
-    <p>Book Description: <%= books[i].body %></p>
-  <% } %>
+<main >
+
+  <div class='main_book_container'>
+    <h1 class='book_page_title'>List of Books</h1>
+      <div class='book_sub_section'>
+        <% for(var i = 0; i < 3; i++) { %>
+          <div class='book_info'>
+            <h2>Book Name: <%= books[i].title %> </h2>
+            <h2>Book Author: <%= books[i].author %> </h2>
+            <p>Book Description: <%= books[i].body %></p>
+          </div>
+        <% } %>
+      </div>
+  </div>
+
 </main>
 
 <% include partials/footer %>
