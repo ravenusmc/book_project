@@ -1,9 +1,14 @@
 //Requiring all of the packages
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
 //Setting up the constant variable which will be set equal to express.
 const app = express();
+
+//Code for the model
+mongoose.connect('mongoddb://localhost/book');
+let db = mongoose.connection;
 
 //loading view engine 
 app.set('views', path.join(__dirname, 'views'));
