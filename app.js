@@ -6,9 +6,26 @@ const mongoose = require('mongoose');
 //Setting up the constant variable which will be set equal to express.
 const app = express();
 
+/////////////// Code for the Model ////////////
+
 //Code for the model
-mongoose.connect('mongoddb://localhost/book');
+mongoose.connect('mongodb://localhost/book');
 let db = mongoose.connection;
+
+//Bringing in model
+let Book = require('./models/book');
+
+//Checking for DB errors
+db.on('error', function(err){
+  console.log(err);
+});
+
+//Checking connection
+db.once('open', function(){
+  console.log('Connected to MongoDB');
+});
+
+//////////// End Code for the Model /////////////
 
 //loading view engine 
 app.set('views', path.join(__dirname, 'views'));
@@ -19,10 +36,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Home route 
 app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Home Page'
-  });
+    res.render('index', {
+        title: 'Home Page',
+        books: books
+    });
 });
+
+app.get('/home', function(req, res){
+      //books = [1984, 'It', 'The Thing'];
+      //console.log(Book);
+      Book.find({}, function(err, books){
+        res.render('home', {
+          title: 'Home Page',
+          books: books
+        });
+      });
+
+});
+
+// app.get('/home', function(req, res){
+//   Book.find({}, function(err, books){
+//     if (err){
+//       console.log(err);
+//     } else {
+//       res.render('index', {
+//         title: 'Home Page',
+//         books: books
+//       });
+//     }
+//   });
+// });
 
 //Route files 
 let books = require('./routes/books');
@@ -32,3 +75,43 @@ app.use('/books', books);
 app.listen(3000, function(){
   console.log('Server Started on port 3000...')
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
