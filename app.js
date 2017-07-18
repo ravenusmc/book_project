@@ -42,30 +42,16 @@ app.get('/', function(req, res){
     });
 });
 
-app.get('/home', function(req, res){
-      //books = [1984, 'It', 'The Thing'];
-      //console.log(Book);
+//route to book page
+app.get('/book', function(req, res){
       Book.find({}, function(err, books){
-        res.render('home', {
+        res.render('book', {
           title: 'Home Page',
           books: books
         });
       });
 
 });
-
-// app.get('/home', function(req, res){
-//   Book.find({}, function(err, books){
-//     if (err){
-//       console.log(err);
-//     } else {
-//       res.render('index', {
-//         title: 'Home Page',
-//         books: books
-//       });
-//     }
-//   });
-// });
 
 //Route files 
 let books = require('./routes/books');
