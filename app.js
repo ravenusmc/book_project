@@ -12,11 +12,16 @@ app.set('view engine', 'ejs');
 //Setting up public folder 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Home route 
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Home Page'
   });
 });
+
+//Route files 
+let books = require('./routes/books');
+app.use('/books', books);
 
 //Code to start the server.
 app.listen(3000, function(){
