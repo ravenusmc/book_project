@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 //Setting up the constant variable which will be set equal to express.
 const app = express();
@@ -34,6 +35,15 @@ app.set('view engine', 'ejs');
 //Setting up public folder 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Body Parser Middleware
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+//ROUTES 
+
 //Home route 
 app.get('/', function(req, res){
     res.render('index', {
@@ -52,6 +62,34 @@ app.get('/book', function(req, res){
       });
 
 });
+
+//route to add book page
+app.get('/book/add', function(req, res){
+    res.render('add_book', {
+      title: 'Add Book'
+    });
+});
+
+app.post('/book/add', function(req, res){
+
+  let book = new Book();
+
+  book.title = req.body.title;
+  book.author = req.body.author;
+  book.body = req.body.body;
+
+  book.save(function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else {
+      res.redirect('/')
+    }
+  });
+
+});
+
+//END OF ROUTES 
 
 //Route files 
 let books = require('./routes/books');

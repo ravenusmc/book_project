@@ -22,21 +22,27 @@
 </nav>
 
 <!-- Main Elements -->
-<main >
+<main>
 
-  <div class='main_book_container'>
-    <h1 class='book_page_title'>List of Books</h1>
-      <div class='book_sub_section'>
-        <% for(var i = 0; i < books.length; i++) { %>
-          <div class='book_info'>
-            <h2>Book Name: <%= books[i].title %> </h2>
-            <h2>Book Author: <%= books[i].author %> </h2>
-            <h5>Book Description: <%= books[i].body %></h5>
-          </div>
-        <% } %>
+     <form method='POST', action='/book/add' >
+      <div class="form-group col-3">
+        <label>Title:</label>
+        <input type="text" class="form-control" name='title'>  
       </div>
-  </div>
+      <div class="form-group col-3">
+        <label>Author:</label>
+        <input type="text" class="form-control" name='author'>  
+      </div>
+      <div class="form-group col-3">
+        <label>Body:</label>
+        <textarea type="textarea" class="form-control" name='body'></textarea>
+      </div>
+      <button class='btn btn-primary' type='submit' value='submit'>Submit</button>
+    </form>
 
 </main>
+
+
+
 
 <% include partials/footer %>
