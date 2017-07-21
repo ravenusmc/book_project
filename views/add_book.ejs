@@ -24,6 +24,18 @@
 <!-- Main Elements -->
 <main>
   <h1 class='add_book_title center'>Add New Book</h1>
+
+      <form class='form_container' method='POST', action='/book/add'>
+        <label>Title:</label><input size=50 type="text" name='title'/><br> 
+        <label>Author:</label><input size=50 type="text" name='author'/><br>
+        <label>Body:</label><textarea cols=49 rows=5 type="textarea" name='body'></textarea>
+        <div class='btn_align'>
+          <button class='btn btn-primary' type='submit' value='submit'>Submit</button>
+        </div>
+      </form>
+
+</main>
+
 <!--       <form class='form_container' method='POST', action='/book/add' >
         <div class="form-group col-3">
           <label>Title:</label>
@@ -39,15 +51,6 @@
         </div>
         <button class='btn btn-primary' type='submit' value='submit'>Submit</button>
       </form> -->
-
-      <form class='form_container' method='POST', action='/book/add'>
-        <label>Title:</label><input type="text" name='title'><br> 
-        <label>Author:</label><input type="text" name='author'><br>
-        <label>Body:</label><textarea type="textarea" name='body'></textarea>
-        <button class='btn btn-primary' type='submit' value='submit'>Submit</button>
-      </form>
-
-</main>
 
 
 
