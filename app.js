@@ -60,7 +60,15 @@ app.get('/book', function(req, res){
           books: books
         });
       });
+});
 
+//Get single Book
+app.get('/book/:id', function(req,res){
+  Book.findById(req.params.id, function(err, book){
+    res.render('edit_book', {
+      book: book
+    });
+  });
 });
 
 //route to add book page
@@ -83,7 +91,7 @@ app.post('/book/add', function(req, res){
       console.log(err);
       return;
     }else {
-      res.redirect('/')
+      res.redirect('/book')
     }
   });
 

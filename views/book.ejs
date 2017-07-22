@@ -29,8 +29,8 @@
       <div class='book_sub_section'>
         <% for(var i = 0; i < books.length; i++) { %>
           <div class='book_info'>
-            <h2>Book Name: <%= books[i].title %> </h2>
-            <h2>Book Author: <%= books[i].author %> </h2>
+            <h2><a href='/book/<%= books[i]._id %>'>Book Name: <%= books[i].title %></a></h2>
+            <h2>Book Author: <%= books[i].author %></h2>
             <h5>Book Description: <%= books[i].body %></h5>
           </div>
         <% } %>
