@@ -54,19 +54,10 @@ app.get('/', function(req, res){
 
 //route to book page
 app.get('/book', function(req, res){
-      Book.find({}, function(err, books){
-        res.render('book', {
-          title: 'Home Page',
-          books: books
-        });
-      });
-});
-
-//Get single Book
-app.get('/book/:id', function(req,res){
-  Book.findById(req.params.id, function(err, book){
-    res.render('edit_book', {
-      book: book
+  Book.find({}, function(err, books){
+    res.render('book', {
+      title: 'Home Page',
+      books: books
     });
   });
 });
@@ -94,7 +85,15 @@ app.post('/book/add', function(req, res){
       res.redirect('/book')
     }
   });
+});
 
+//Get single Book
+app.get('/book/:id', function(req,res){
+  Book.findById(req.params.id, function(err, book){
+    res.render('edit_book', {
+      book: book
+    });
+  });
 });
 
 //END OF ROUTES 
