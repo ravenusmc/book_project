@@ -12,26 +12,29 @@
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/book/add">Add Book</a>
+        <a class="nav-link" href="/book">Book</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="/book/add">Add</a>
       </li>
     </ul>
   </div>
 </nav>
 
-<main class='edit_book_container'>
-  <div class='book_info_edit'>
-    <h1>Title: <%= book.title %></h1>
-    <h5>Written by: <%= book.author %></h5>
-    <p>Desription: <%= book.body %></p>
-    <hr>
-    <button><a href='/book/edit/<%= book._id %>'>Edit</a></button>
-    <button><a href='#' data-id='<%= book._id %>'>Delete</a></button>
-  </div>
-</main>
+<!-- Main Elements -->
+<main class='add_book_main'>
+  <h1 class='add_book_title center'>Edit Book</h1>
 
+      <form class='form_container' method='POST', action='/book/edit/<%= book._id %>'>
+        <label>Title:</label><input size=50 type="text" name='title' value='<%= book.title %>'/><br> 
+        <label>Author:</label><input size=50 type="text" name='author' value='<%= book.author %>'/><br>
+        <label>Body:</label><textarea cols=49 rows=5 type="textarea" name='body'><%= book.body %></textarea>
+        <div class='btn_align'>
+          <button class='btn btn-primary' type='submit' value='submit'>Update</button>
+        </div>
+      </form>
+
+</main>
 
 
 <% include partials/footer %>

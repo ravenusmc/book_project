@@ -96,6 +96,37 @@ app.get('/book/:id', function(req,res){
   });
 });
 
+//Load Edit form for single Book
+app.get('/book/edit/:id', function(req,res){
+  Book.findById(req.params.id, function(err, book){
+    res.render('edit_form_book', {
+      title: 'Edit Book Page',
+      book: book
+    });
+  });
+});
+
+//Post for edit page
+app.post('/book/edit/:id', function(req, res){
+
+  let book = {};
+
+  book.title = req.body.title;
+  book.author = req.body.author;
+  book.body = req.body.body;
+
+  let query = {_id:req.params.id}
+
+  Book.update(query, book, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else {
+      res.redirect('/book')
+    }
+  });
+});
+
 //END OF ROUTES 
 
 //Route files 
