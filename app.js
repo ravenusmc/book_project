@@ -127,6 +127,18 @@ app.post('/book/edit/:id', function(req, res){
   });
 });
 
+app.delete('/book/:id', function(req, res){
+
+  let query = {_id:req.params.id}
+
+  Book.remove(query, function(err){
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
 //END OF ROUTES 
 
 //Route files 
