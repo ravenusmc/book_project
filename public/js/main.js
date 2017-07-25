@@ -1,4 +1,4 @@
-//Ajax to delete book 
+//Ajax code to delete a book. 
 $(document).ready(function(){
   $('.delete-book').on('click', function(e){
     $target = $(e.target);

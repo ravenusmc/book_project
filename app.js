@@ -54,12 +54,19 @@ app.get('/', function(req, res){
 
 //route to book page
 app.get('/book', function(req, res){
+
+  console.log('Mike')
+
+  test = Book.find({});
+  console.log(test)
+
   Book.find({}, function(err, books){
     res.render('book', {
       title: 'Home Page',
       books: books
     });
   });
+
 });
 
 //route to add book page
