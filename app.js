@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 //Setting up the constant variable which will be set equal to express.
 const app = express();
@@ -42,6 +45,39 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
+//Express Sessions code
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+
+//Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
+//Express validation middleware
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
 //ROUTES 
 
 //Home route 
@@ -55,11 +91,6 @@ app.get('/', function(req, res){
 //route to book page
 app.get('/book', function(req, res){
 
-  console.log('Mike')
-
-  test = Book.find({});
-  console.log(test)
-
   Book.find({}, function(err, books){
     res.render('book', {
       title: 'Home Page',
@@ -71,27 +102,44 @@ app.get('/book', function(req, res){
 
 //route to add book page
 app.get('/book/add', function(req, res){
+    let errors = null;
     res.render('add_book', {
-      title: 'Add Book'
+      errors: errors
     });
 });
 
 app.post('/book/add', function(req, res){
 
-  let book = new Book();
+  req.checkBody('title','Title is required').notEmpty();
+  req.checkBody('author','Author is required').notEmpty();
+  req.checkBody('body','Body is required').notEmpty();
 
-  book.title = req.body.title;
-  book.author = req.body.author;
-  book.body = req.body.body;
+  //Getting the Errors
+  let errors = req.validationErrors();
 
-  book.save(function(err){
-    if(err){
-      console.log(err);
-      return;
-    }else {
-      res.redirect('/book')
-    }
-  });
+  if (errors){
+    res.render('add_book', {
+      errors: errors
+    });
+    console.log(errors);
+  } else{
+      let book = new Book();
+
+      book.title = req.body.title;
+      book.author = req.body.author;
+      book.body = req.body.body;
+
+      book.save(function(err){
+        if(err){
+          console.log(err);
+          return;
+        }else {
+          req.flash('success','Book Added')
+          res.redirect('/book')
+        }
+      });
+
+  }
 });
 
 //Get single Book
@@ -129,6 +177,7 @@ app.post('/book/edit/:id', function(req, res){
       console.log(err);
       return;
     }else {
+      req.flash('success', 'Book Updated')
       res.redirect('/book')
     }
   });
