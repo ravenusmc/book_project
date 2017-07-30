@@ -45,7 +45,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
 //Express Sessions code
 app.use(session({
   secret: 'keyboard cat',
@@ -78,19 +77,18 @@ app.use(expressValidator({
   }
 }));
 
-
 //Home route 
 app.get('/', function(req, res){
     res.render('index', {
-        title: 'Home Page',
-        books: books
+        title: 'Home Page'
     });
 });
 
-
 //Route files 
 let books = require('./routes/books');
+let users = require('./routes/users');
 app.use('/books', books);
+app.use('/users', users);
 
 //Code to start the server.
 app.listen(3000, function(){
