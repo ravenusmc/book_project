@@ -78,7 +78,6 @@ app.use(expressValidator({
   }
 }));
 
-//ROUTES 
 
 //Home route 
 app.get('/', function(req, res){
@@ -88,114 +87,6 @@ app.get('/', function(req, res){
     });
 });
 
-//route to book page
-app.get('/book', function(req, res){
-
-  Book.find({}, function(err, books){
-    res.render('book', {
-      title: 'Home Page',
-      books: books
-    });
-  });
-
-});
-
-//route to add book page
-app.get('/book/add', function(req, res){
-    let errors = null;
-    res.render('add_book', {
-      errors: errors
-    });
-});
-
-app.post('/book/add', function(req, res){
-
-  req.checkBody('title','Title is required').notEmpty();
-  req.checkBody('author','Author is required').notEmpty();
-  req.checkBody('body','Body is required').notEmpty();
-
-  //Getting the Errors
-  let errors = req.validationErrors();
-
-  if (errors){
-    res.render('add_book', {
-      errors: errors
-    });
-    console.log(errors);
-  } else{
-      let book = new Book();
-
-      book.title = req.body.title;
-      book.author = req.body.author;
-      book.body = req.body.body;
-
-      book.save(function(err){
-        if(err){
-          console.log(err);
-          return;
-        }else {
-          req.flash('success','Book Added')
-          res.redirect('/book')
-        }
-      });
-
-  }
-});
-
-//Get single Book
-app.get('/book/:id', function(req,res){
-  Book.findById(req.params.id, function(err, book){
-    res.render('edit_book', {
-      book: book
-    });
-  });
-});
-
-//Load Edit form for single Book
-app.get('/book/edit/:id', function(req,res){
-  Book.findById(req.params.id, function(err, book){
-    res.render('edit_form_book', {
-      title: 'Edit Book Page',
-      book: book
-    });
-  });
-});
-
-//Post for edit page
-app.post('/book/edit/:id', function(req, res){
-
-  let book = {};
-
-  book.title = req.body.title;
-  book.author = req.body.author;
-  book.body = req.body.body;
-
-  let query = {_id:req.params.id}
-
-  Book.update(query, book, function(err){
-    if(err){
-      console.log(err);
-      return;
-    }else {
-      req.flash('success', 'Book Updated')
-      res.redirect('/book')
-    }
-  });
-});
-
-app.delete('/book/:id', function(req, res){
-
-  let query = {_id:req.params.id}
-
-  Book.remove(query, function(err){
-    if(err){
-      console.log(err);
-    }
-    res.send('Success');
-  });
-});
-
-//END OF ROUTES 
 
 //Route files 
 let books = require('./routes/books');

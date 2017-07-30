@@ -12,10 +12,7 @@
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/book/add">Add Book</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="/books/add">Add Book</a>
       </li>
     </ul>
   </div>
@@ -31,7 +28,7 @@
       <div class='book_sub_section'>
         <% for(var i = 0; i < books.length; i++) { %>
           <div class='book_info'>
-            <h2><a class='anchor anchor_fix' href='/book/<%= books[i]._id %>'>Book Name: <%= books[i].title %></a></h2>
+            <h2><a class='anchor anchor_fix' href='/books/<%= books[i]._id %>'>Book Name: <%= books[i].title %></a></h2>
             <h2>Book Author: <%= books[i].author %></h2>
             <h5>Book Description: <%= books[i].body %></h5>
           </div>
