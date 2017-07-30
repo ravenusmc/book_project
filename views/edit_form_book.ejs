@@ -25,7 +25,7 @@
 <main class='add_book_main'>
   <h1 class='add_book_title center'>Edit Book</h1>
 
-      <form class='form_container' method='POST', action='/book/edit/<%= book._id %>'>
+      <form class='form_container' method='POST', action='/books/edit/<%= book._id %>'>
         <label>Title:</label><input size=50 type="text" name='title' value='<%= book.title %>'/><br> 
         <label>Author:</label><input size=50 type="text" name='author' value='<%= book.author %>'/><br>
         <label>Body:</label><textarea cols=49 rows=5 type="textarea" name='body'><%= book.body %></textarea>

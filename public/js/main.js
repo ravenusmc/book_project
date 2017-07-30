@@ -8,7 +8,7 @@ $(document).ready(function(){
       url: '/books/' + id,
       success: function(response){
         alert('Deleting Book');
-        window.location.href='/book';
+        window.location.href='/books';
       },
       error: function(err){
         console.log(err);
