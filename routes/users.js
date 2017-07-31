@@ -7,7 +7,10 @@ let User = require('../models/user');
 
 //Register form 
 router.get('/register', function(req,res){
-  res.render('register');
+  let errors = null;
+  res.render('register', {
+    errors: errors
+  });
 });
 
 //Register Process 
@@ -39,7 +42,7 @@ router.post('/register', function(req,res){
       password: password
     });
 
-    bcrypt.getSalt(10,function(err, salt){
+    bcrypt.genSalt(10,function(err, salt){
       bcrypt.hash(newUser.password, salt, function(err, hash){
         if(err){
           console.log(err);
@@ -51,7 +54,7 @@ router.post('/register', function(req,res){
             return;
           }else{
             req.flash('Success', 'You are now registered!');
-            res.redirect('/user/login');
+            res.redirect('/users/login');
           }
         });
       });

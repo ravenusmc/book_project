@@ -17,9 +17,14 @@
       <li class="nav-item">
         <a class="nav-link" href="/book/add">Add</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/register">Register</a>
+      </li>
     </ul>
   </div>
 </nav>
+
+<%- messages('message', locals) %>
 
    <% if (errors) { %>
     <% for(var i = 0; i < errors.length; i++) { %>
@@ -38,7 +43,7 @@
         <label>Email:</label><input size=50 type="text" name='email'/><br>
         <label>Username:</label><input size=50 type="text" name='username'/><br>
         <label>Password:</label><input size=50 type="password" name='password'/><br>
-        <label>Confirm:</label><input size=50 type="text" name='password2'/><br>
+        <label>Confirm:</label><input size=50 type="password" name='password2'/><br>
         <div class='btn_align'>
           <button class='btn btn-primary' type='submit' value='submit'>Submit</button>
         </div>
