@@ -14,12 +14,18 @@
       <li class="nav-item">
         <a class="nav-link" href="/books/add">Add Book</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/register">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/login">Login</a>
-      </li>
+      <% if (user) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/logout">Logout</a>
+        </li>
+      <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/login">Login</a>
+        </li>
+      <% } %>
     </ul>
   </div>
 </nav>
@@ -30,7 +36,7 @@
 <main >
 
   <div class='main_book_container'>
-    <h1 class='book_page_title'>List of Books</h1>
+    <h1 class='book_page_title'>Lis of Books</h1>
       <div class='book_sub_section'>
         <% for(var i = 0; i < books.length; i++) { %>
           <div class='book_info'>
