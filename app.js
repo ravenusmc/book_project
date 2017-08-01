@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const config = require('./config/database');
+const passport = require('passport');
 
 //Setting up the constant variable which will be set equal to express.
 const app = express();
@@ -13,7 +15,7 @@ const app = express();
 /////////////// Code for the Model ////////////
 
 //Code for the model
-mongoose.connect('mongodb://localhost/book');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
 //Bringing in model
@@ -76,6 +78,12 @@ app.use(expressValidator({
     };
   }
 }));
+
+//Passport config
+require('./config/passport')(passport);
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Home route 
 app.get('/', function(req, res){
