@@ -3,9 +3,11 @@ const router = express.Router();
 
 //Bringing in Book model
 let Book = require('../models/book');
+//User model
+let User = require('../models/user');
 
 //route to book page
-router.get('', function(req, res){
+router.get('', ensureAuthenticated, function(req, res){
 
   Book.find({}, function(err, books){
     res.render('book', {
@@ -17,7 +19,7 @@ router.get('', function(req, res){
 });
 
 //route to add book page
-router.get('/add', function(req, res){
+router.get('/add', ensureAuthenticated, function(req, res){
     let errors = null;
     res.render('add_book', {
       errors: errors
@@ -58,7 +60,7 @@ router.post('/add', function(req, res){
 });
 
 //Get single Book
-router.get('/:id', function(req,res){
+router.get('/:id', ensureAuthenticated, function(req,res){
   Book.findById(req.params.id, function(err, book){
     res.render('edit_book', {
       book: book
@@ -67,7 +69,7 @@ router.get('/:id', function(req,res){
 });
 
 //Load Edit form for single Book
-router.get('/edit/:id', function(req,res){
+router.get('/edit/:id', ensureAuthenticated, function(req,res){
   Book.findById(req.params.id, function(err, book){
     res.render('edit_form_book', {
       title: 'Edit Book Page',
@@ -109,5 +111,15 @@ router.delete('/:id', function(req, res){
     res.send('Success');
   });
 });
+
+//Access Control 
+function ensureAuthenticated(req,res,next){
+  if (req.isAuthenticated()){
+    return next();
+  }else {
+    req.flash('danger', 'Please login');
+    res.redirect('/users/login')
+  }
+}
 
 module.exports = router;
