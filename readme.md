@@ -19,9 +19,11 @@ This is the second project that I am going with the MEN stack. The project will 
 
 # Issues
 
+This project, at this time has no major issues. 
+
 
 # Preview
 
-To see a video that talks about this project please go here: COMING SOON
+To see a video that talks about this project please go here: https://youtu.be/B3G0cl_cxAk
 
-Blog entry: COMING SOON
+Blog entry: https://wordpress.com/post/codingsaga.wordpress.com/291
